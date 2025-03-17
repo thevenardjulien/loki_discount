@@ -15,11 +15,12 @@ export async function fetchUsers() {
     throw new Error('Something went wrong');
 }
 
-export async function fetchOneUser(id: string | undefined) {
+export async function fetchOneUser(token: string, id: string | undefined) {
     const response = await fetch(`http://localhost:8000/api/users/${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
         },
     });
 

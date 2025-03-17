@@ -24,6 +24,7 @@ export default function Login() {
 
         if (response.ok && response.status === 200) {
             localStorage.setItem('token', responseJSON.token);
+            localStorage.setItem('user', JSON.stringify(responseJSON.user));
             window.location.href = '/';
         } else if (responseJSON.message === 'Invalid Credentials') {
             toast.error('Invalid Credentials');

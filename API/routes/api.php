@@ -9,10 +9,14 @@ Route::get('/test', function () {
     return response()->json(['message' => 'test'], 200);
 });
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{id}', [UserController::class, 'show']);
-Route::post('/users/store', [UserController::class, 'store']);
-Route::put('/users/update/{id}', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
-
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::post('/users/store', [UserController::class, 'store']);
+    Route::put('/users/update/{id}', [UserController::class, 'update']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+});
+
+Route::middleware('auth:sanctum', 'role:admin')->group(function () {});
